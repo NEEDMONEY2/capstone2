@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange Now</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body bgcolor='#f5f5f5'>
+    <h1 id="title">Exchange Now</h1>
+    <h2 id="sub_title">CWNU Capstone 2023</h2>
+
+    <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FblTdQu%2FbtsyPY1H8Bs%2FoRwfWp48oDWCSmsQAUTYBk%2Fimg.png"
+        width="300" height="300" alt="logo" id="logo-image">
+
+    <select id="currency-select">
+        <option value="sel">선택해주세요</option>
+        <option value="USD">미국 USD</option>
+        <option value="JPY">일본 JPY</option>
+        <option value="EUR">유럽 EUR</option>
+        <option value="CAD">캐나다 CAD</option>
+        <option value="AUD">호주 AUD</option>
+    </select>
+
+
+    <button id="goToOtherPage">
+        <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FnUj83%2FbtsyULQvuzM%2FOKZE3HTlp6rdxbdMTZGn90%2Fimg.png"
+            width="25" height="25">
+    </button>
+
+    <script>
+        const currencySelect = document.getElementById('currency-select');
+        const cameraButton = document.getElementById('goToOtherPage');
+
+        // currencySelect.addEventListener('change', function () {
+        //     // 국가 선택이 변경될 때
+        //     if (currencySelect.value) {
+        //         // 국가가 선택된 경우 카메라 버튼 활성화
+        //         cameraButton.removeAttribute('disabled');
+        //     } else {
+            //         // 선택을 해제한 경우 카메라 버튼 비활성화
+            //         cameraButton.setAttribute('disabled', 'disabled');
+            //     }
+            // });
+
+            cameraButton.addEventListener('click', function () {
+                // 카메라 버튼 클릭 이벤트 처리
+                const selectedCurrency = currencySelect.value;
+                if (selectedCurrency != "sel") {
+                    // 선택한 국가가 있다면 페이지 이동 (detect.html로 이동하면서 선택한 국가 값을 URL 매개변수로 전달)
+                    window.location.href = `detect.html?currency=${selectedCurrency}`;
+
+                }
+                else if (selectedCurrency == "sel") {
+                    alert("국가를 선택해주세요");
+                }
+            });
+        </script>
+    
+    <script> //usd 환율 정보
+        let usd_price;
+        const usd_url = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/krw.json";
+
+        fetch(usd_url) // URL로 HTTP 요청 
+            .then(response => response.json())  // 응답 객체를 JSON 형식으로 변환
+            .then(data => {
+                usd_price = parseInt(data.krw); // JSON 데이터에서 krw 값을 추출하여 usd_price에 정수형으로 변환
+
+                const usdCell = document.getElementById('usd-cell');
+                usdCell.textContent = usd_price.toLocaleString() + ' KRW'; // 환율에 'KRW'를 추가하고 형식화
+
+                // '환율()' 괄호 안에 data.date 삽입
+                const exchangeElement = document.getElementById('exchange');
+                exchangeElement.textContent = `환율 (${data.date})`;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    </script>
+
+    <script> //jpy 환율 정보
+        let jpy_price;
+        const jpy_url = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/jpy/krw.json";
+
+        fetch(jpy_url)
+            .then(response => response.json())
+            .then(data => {
+                jpy_price = parseInt(data.krw * 100);
+
+                const jpyCell = document.getElementById('jpy-cell');
+                jpyCell.textContent = jpy_price.toLocaleString() + ' KRW';
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    </script>
+
+    <script> //eur 환율 정보
+        let eur_price;
+        const eur_url = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/eur/krw.json";
+
+        fetch(eur_url) // URL로 HTTP 요청 
+            .then(response => response.json())  // 응답 객체를 JSON 형식으로 변환
+            .then(data => {
+                eur_price = parseInt(data.krw); // JSON 데이터에서 krw 값을 추출하여 eur_price에 정수형으로 변환
+
+                const eurCell = document.getElementById('eur-cell');
+                eurCell.textContent = eur_price.toLocaleString() + ' KRW'; // 환율에 'KRW'를 추가하고 형식화
+
+                // '환율()' 괄호 안에 data.date 삽입
+                const exchangeElement = document.getElementById('exchange');
+                exchangeElement.textContent = `환율 (${data.date})`;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    </script>
+
+    <script> //cad 환율 정보
+        let cad_price;
+        const cad_url = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/cad/krw.json";
+
+        fetch(cad_url) // URL로 HTTP 요청 
+            .then(response => response.json())  // 응답 객체를 JSON 형식으로 변환
+            .then(data => {
+                cad_price = parseInt(data.krw); // JSON 데이터에서 krw 값을 추출하여 cad_price에 정수형으로 변환
+
+                const cadCell = document.getElementById('cad-cell');
+                cadCell.textContent = cad_price.toLocaleString() + ' KRW'; // 환율에 'KRW'를 추가하고 형식화
+
+                // '환율()' 괄호 안에 data.date 삽입
+                const exchangeElement = document.getElementById('exchange');
+                exchangeElement.textContent = `환율 (${data.date})`;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    </script>
+
+    <script> //aud 환율 정보
+        let aud_price;
+        const aud_url = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/aud/krw.json";
+
+        fetch(aud_url) // URL로 HTTP 요청 
+            .then(response => response.json())  // 응답 객체를 JSON 형식으로 변환
+            .then(data => {
+                aud_price = parseInt(data.krw); // JSON 데이터에서 krw 값을 추출하여 aud_price에 정수형으로 변환
+
+                const audCell = document.getElementById('aud-cell');
+                audCell.textContent = aud_price.toLocaleString() + ' KRW'; // 환율에 'KRW'를 추가하고 형식화
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    </script>
+
+    <h3 id='exchange'></h3>
+    <table width="300" height="100">
+        <tbody>
+            <tr>
+                <td align="left">🇺🇸 미국 USD</td>
+                <td id="usd-cell"></td>
+            </tr>
+            <tr>
+                <td align="left">🇯🇵 일본 JPY</td>
+                <td id="jpy-cell"></td>
+            </tr>
+            <tr>
+                <td align="left">🇪🇺 유럽 EUR</td>
+                <td id="eur-cell"></td>
+            </tr>
+            <tr>
+                <td align="left">🇨🇦 캐나다 CAD</td>
+                <td id="cad-cell"></td>
+            </tr>
+            <tr>
+                <td align="left">🇦🇺 호주 AUD</td>
+                <td id="aud-cell"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</html>

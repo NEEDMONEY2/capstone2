@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Roboflow Demo</title>
+
+    <meta name="viewport" content="width=640, user-scalable=no" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
+        integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/async/3.2.0/async.min.js"
+        integrity="sha512-6K6+H87tLdCWvY5ml9ZQXLRlPlDEt8uXmtELhuJRgFyEDv6JvndWHg3jadJuBVGPEhhA2AAt+ROMC2V7EvTIWw=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.roboflow.com/0.2.26/roboflow.js"></script>
+
+
+    <link rel="stylesheet" href="./detect-style.css">
+
+
+
+
+    <meta charset="UTF-8">
+
+    <div id="title2"></div>
+    <div id="results-container"></div>
+
+    <div id="resultContainer">
+        <p id="result"></p>
+    </div>
+
+</head>
+
+<body class="loading">
+    <div id="video-container">
+        <video id="video" autoplay muted playsinline></video>
+        <div id="text-overlay">KDW👨🏻‍🎓 &nbsp;&nbsp; PSH👨🏻‍🎓</div>
+    </div>
+    <div id="fps"></div>
+
+    <div id="selected-currency"></div> <!-- 선택한 국가를 출력할 엘리먼트 -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedCurrency = urlParams.get('currency');
+            if (selectedCurrency) {
+                const resultElement = document.getElementById('selected-currency');
+                resultElement.textContent = `선택한 국가: ${selectedCurrency}`;
+
+                // JavaScript 파일로 선택한 국가를 전달
+                if (selectedCurrency == "USD") {
+                    loadJavaScript_USD(selectedCurrency);
+                } else if (selectedCurrency == "JPY") {
+                    loadJavaScript_JPY(selectedCurrency);
+                } else if (selectedCurrency == "EUR") {
+                    loadJavaScript_EUR(selectedCurrency);
+                } else if (selectedCurrency == "CAD") {
+                    loadJavaScript_CAD(selectedCurrency);
+                } else if (selectedCurrency == "AUD") {
+                    loadJavaScript_AUD(selectedCurrency);
+                }
+            }
+        });
+
+        // main_usd.js 파일 로드 함수
+        function loadJavaScript_USD(selectedCurrency) {
+            const script = document.createElement('script');
+            script.src = 'main_usd.js'; // JavaScript 파일 경로
+
+            script.onload = function () {
+                // JavaScript 파일 로드 완료 시 처리
+                // JavaScript 파일 내에서 selectedCurrency를 사용할 수 있음
+            };
+            document.head.appendChild(script);
+        }
+
+        // main_jpy.js 파일 로드 함수
+        function loadJavaScript_JPY(selectedCurrency) {
+            const script = document.createElement('script');
+            script.src = 'main_jpy.js'; // JavaScript 파일 경로
+
+            script.onload = function () {
+                // JavaScript 파일 로드 완료 시 처리
+                // JavaScript 파일 내에서 selectedCurrency를 사용할 수 있음
+            };
+            document.head.appendChild(script);
+        }
+
+        // main_eur.js 파일 로드 함수
+        function loadJavaScript_EUR(selectedCurrency) {
+            const script = document.createElement('script');
+            script.src = 'main_eur.js'; // JavaScript 파일 경로
+
+            script.onload = function () {
+                // JavaScript 파일 로드 완료 시 처리
+                // JavaScript 파일 내에서 selectedCurrency를 사용할 수 있음
+            };
+            document.head.appendChild(script);
+        }
+
+        // main_cad.js 파일 로드 함수
+        function loadJavaScript_CAD(selectedCurrency) {
+            const script = document.createElement('script');
+            script.src = 'main_cad.js'; // JavaScript 파일 경로
+
+            script.onload = function () {
+                // JavaScript 파일 로드 완료 시 처리
+                // JavaScript 파일 내에서 selectedCurrency를 사용할 수 있음
+            };
+            document.head.appendChild(script);
+        }
+
+        // main_aud.js 파일 로드 함수
+        function loadJavaScript_AUD(selectedCurrency) {
+            const script = document.createElement('script');
+            script.src = 'main_aud.js'; // JavaScript 파일 경로
+
+            script.onload = function () {
+                // JavaScript 파일 로드 완료 시 처리
+                // JavaScript 파일 내에서 selectedCurrency를 사용할 수 있음
+            };
+            document.head.appendChild(script);
+        }
+
+    </script>
+
+
+</body>
+
+<script> //usd 환율 정보
+    let usd_price;
+    const usd_url = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/krw.json";
+
+    fetch(usd_url) // URL로 HTTP 요청 
+        .then(response => response.json())  // 응답 객체를 JSON 형식으로 변환
+        .then(data => {
+            usd_price = parseInt(data.krw) // JSON 데이터에서 krw 값을 추출하여 usd_price에 정수형으로 변환
+            console.log(usd_price);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+</script>
+
+<script> //jpy 환율 정보
+    let jpy_price;
+    const jpy_url = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/jpy/krw.json";
+
+    fetch(jpy_url)
+        .then(response => response.json())
+        .then(data => {
+            jpy_price = parseInt(data.krw)
+            console.log(jpy_price);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+</script>
+
+<script> //eur 환율 정보
+    let eur_price;
+    const eur_url = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/eur/krw.json";
+
+    fetch(eur_url) // URL로 HTTP 요청 
+        .then(response => response.json())  // 응답 객체를 JSON 형식으로 변환
+        .then(data => {
+            eur_price = parseInt(data.krw); // JSON 데이터에서 krw 값을 추출하여 eur_price에 정수형으로 변환
+
+            const eurCell = document.getElementById('eur-cell');
+            eurCell.textContent = eur_price.toLocaleString() + ' KRW'; // 환율에 'KRW'를 추가하고 형식화
+
+            // '환율()' 괄호 안에 data.date 삽입
+            const exchangeElement = document.getElementById('exchange');
+            exchangeElement.textContent = `환율 (${data.date})`;
+        })
+        .catch(error => {
+            console.log(error);
+        });
+</script>
+
+<script> //cad 환율 정보
+    let cad_price;
+    const cad_url = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/cad/krw.json";
+
+    fetch(cad_url) // URL로 HTTP 요청 
+        .then(response => response.json())  // 응답 객체를 JSON 형식으로 변환
+        .then(data => {
+            cad_price = parseInt(data.krw); // JSON 데이터에서 krw 값을 추출하여 cad_price에 정수형으로 변환
+
+            const cadCell = document.getElementById('cad-cell');
+            cadCell.textContent = cad_price.toLocaleString() + ' KRW'; // 환율에 'KRW'를 추가하고 형식화
+
+            // '환율()' 괄호 안에 data.date 삽입
+            const exchangeElement = document.getElementById('exchange');
+            exchangeElement.textContent = `환율 (${data.date})`;
+        })
+        .catch(error => {
+            console.log(error);
+        });
+</script>
+
+<script> //aud 환율 정보
+    let aud_price;
+    const aud_url = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/aud/krw.json";
+
+    fetch(aud_url) // URL로 HTTP 요청 
+        .then(response => response.json())  // 응답 객체를 JSON 형식으로 변환
+        .then(data => {
+            aud_price = parseInt(data.krw); // JSON 데이터에서 krw 값을 추출하여 aud_price에 정수형으로 변환
+
+            const audCell = document.getElementById('aud-cell');
+            audCell.textContent = aud_price.toLocaleString() + ' KRW'; // 환율에 'KRW'를 추가하고 형식화
+        })
+        .catch(error => {
+            console.log(error);
+        });
+</script>
+
+</html>

@@ -1,0 +1,86 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  text-align: center;
+  margin: 0;
+}
+
+/* AI 이미지 */
+#logo-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/* Exchange Now */
+#title {
+  text-align: center;
+  font-size: 47px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+/* CWNU Capstone 2023 */
+#sub_title {
+  color: mediumblue;
+  text-align: center;
+  font-size: 22px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* KDW PSH */
+#name {
+  text-align: right;
+  font-size: 14px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+
+}
+
+/* 드롭박스 */
+#currency-select {
+  width: 140px;
+  height: 40px;
+  padding: 10px;
+  position: relative;
+  left: -80px;
+  top: 20px;
+  font-size: 13px;
+  background-color: white;
+  color: black;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+/* 카메라 페이지 버튼 */
+#goToOtherPage {
+  width: 90px;
+  height: 40px;
+  padding: 10px;
+  position: relative;
+  left: 90px;
+  top: -20px;
+  font-size: 12px;
+  background-color: darkgray;
+  color: black;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+/* 카메라 로고 위치 이동 */
+#goToOtherPage img {
+  position: relative;
+  top: -3px;
+}
+
+/* 환율 */
+#exchange {
+  font-size: 16px;
+  margin-right: 170px;
+  margin-top: 5px;
+}
